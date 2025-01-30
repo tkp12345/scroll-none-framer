@@ -6,10 +6,8 @@ import { drawImageOnCanvas } from '../utils/draw-image-on-canvas.ts';
 
 export const ScrollCanvas = ({ images }: { images: HTMLImageElement[] }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
   //scroll to smooth
   const smoothIndex = useSmoothScrollIndex({ canvasRef, range: images.length });
-
   // resize canvas for devicePixelRatio
   const canvasSize = useCanvasReSize({
     canvasRef,
@@ -34,13 +32,20 @@ export const ScrollCanvas = ({ images }: { images: HTMLImageElement[] }) => {
   // 초기 렌더링 시 첫 번째 이미지 draw
   useEffect(() => {
     if (canvasRef.current) {
+      console.log(images[0]);
       drawImageOnCanvas(canvasRef, images[0], canvasSize);
     }
-  }, [images]);
+  }, [canvasSize]);
 
   return (
-    <div>
-      <canvas ref={canvasRef} />
-    </div>
+    <>
+      <div className="h-[700px]" />
+      <div className="h-[700px]" />
+      <div className="flex flex-col h-[318px] w-full items-center justify-center tablet:h-[800px]">
+        <canvas ref={canvasRef} />
+      </div>
+      <div className="h-[700px]" />
+      <div className="h-[700px]" />
+    </>
   );
 };
